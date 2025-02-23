@@ -1,40 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-// import { TodoListComponent } from './todo-list/todo-list.component';
-import { TodoService } from './todo.service';
-import { Todo } from './todo.model';
+import { TaskListComponent } from './todo-list/todo-list.component';
+
 @Component({
   selector: 'app-root',
-   imports: [RouterOutlet], //, TodoListComponent
+  standalone: true,
+  imports: [
+    RouterOutlet, 
+    TaskListComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent implements OnInit{
-  todos: Todo[] = [];
-  newTodoTitle: string = '';
+export class AppComponent {
   title = 'todo-app';
-  
-  constructor(private todoService: TodoService) {}
-
-  ngOnInit(): void {
-    this.todos = this.todoService.getTodos();
+  changeTitle() {
+    this.title = 'application'
   }
-
-  addTodo(): void{
-    if(this.newTodoTitle.trim()){
-      this.todoService.addTodo(this.newTodoTitle);
-      this.newTodoTitle = '';
-      this.todos = this.todoService.getTodos();
-    }
-  }
-
-  toggleTodo(id: number): void{
-      this.todoService.toggleTodo(id);
-      this.todos = this.todoService.getTodos();
-    }
-    deleteTodo(id: number): void{
-      this.todoService.deleteTodo(id);
-      this.todos = this.todoService.getTodos();
-    }
 }
+
+
